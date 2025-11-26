@@ -1,6 +1,7 @@
-# Blender bullet engine for rendering rigid collision
+# Blender Notes
+## bullet engine for rendering rigid collision
 
-## step1: preprocess
+### step1: preprocess
 Load an object asset and remove redundant points to simplify the geometry.
 ```python
 # merge neighboring points
@@ -44,7 +45,7 @@ for obj in bpy.data.objects:
         obj.matrix_world = matrix_world
 ```
 
-## Step2: add rigid body world and set up attributes for each object
+### Step2: add rigid body world and set up attributes for each object
 **Passive object**: participates in collisions but never moves;
 **Active object**: fully simulated by physics and can move, rotate, or react to forces and impacts.
 
@@ -55,6 +56,6 @@ For each object, ``✅Dynamic`` in UI or ``car.rigid_body.kinematic=False`` in s
 
 ``Convex Hull + Final`` is the most stable combination for collision calculation in my experience. ``collision margin`` has to be set to a small number (e.g. 0.001 cm). Objects within the same ``Collections`` interact with each other. ``Deactivation`` means the object stay static until interactions happen.
 
-## Step3: add velocity to moving object
+### Step3: add velocity to moving object
 
 There is no explicity linear velocity in Blender 4.5.3. The velocity has to be set by a short clip of animation (key frames). The code is in [set_initial_velocity.py](set_initial_velocity.py).
